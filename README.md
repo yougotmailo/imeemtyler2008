@@ -1,2 +1,2 @@
-this is the tyler archive, htmls for archiving
-someone should've fucking archived tyler's tweets in 2022-2025
+this is the tyler archive, html for archiving da imeem
+someone should've fucking archived tyler's imeem in 2008
