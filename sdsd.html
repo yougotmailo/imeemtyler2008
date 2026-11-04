@@ -5,14 +5,170 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>sdsd</title>
 <style>
-:root{color-scheme:dark;--bg:#0b0c0f;--panel:#14161a;--panel2:#1b1e23;--line:#2b3038;--text:#f2f4f7;--muted:#9ca3af;--accent:#9fe04b}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:15px/1.5 system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}.wrap{max-width:850px;margin:auto;padding:32px 24px}header{padding:30px;background:linear-gradient(135deg,#181b20,#101216);border:1px solid var(--line);border-radius:16px}.eyebrow{color:var(--accent);font-size:12px;letter-spacing:2px;text-transform:uppercase}h1{font-size:clamp(32px,7vw,52px);margin:8px 0}p{margin:0;color:var(--muted)}main{margin-top:18px;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:8px 24px}ol{list-style:none;padding:0;margin:0}li{display:flex;gap:20px;align-items:center;padding:19px 0}.number{color:var(--accent);font-variant-numeric:tabular-nums;font-size:14px;min-width:24px}h2{font-size:17px;font-weight:600;margin:0 0 3px}li p{font-size:14px}a{color:var(--accent);text-decoration:none}a:hover{text-decoration:underline}a:focus-visible{outline:2px solid var(--accent);outline-offset:4px}footer{padding:20px 4px;color:var(--muted);font-size:12px}@media(max-width:540px){.wrap{padding:16px 12px}header{padding:22px}main{padding:4px 18px}li{gap:14px}}
+:root{color-scheme:dark;--bg:#0b0c0f;--panel:#14161a;--panel2:#1b1e23;--line:#2b3038;--text:#f2f4f7;--muted:#9ca3af;--accent:#9fe04b}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:15px/1.5 system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}.wrap{max-width:850px;margin:auto;padding:32px 24px}header{padding:30px;background:linear-gradient(135deg,#181b20,#101216);border:1px solid var(--line);border-radius:16px}.eyebrow{color:var(--accent);font-size:12px;letter-spacing:2px;text-transform:uppercase}h1{font-size:clamp(32px,7vw,52px);margin:8px 0}p{margin:0;color:var(--muted)}main{margin-top:18px;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:8px 24px}
+
+/* Search input styling */
+#search {
+  width: 100%;
+  padding: 10px 14px;
+  margin: 15px 0 5px 0;
+  background: var(--panel2);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  color: var(--text);
+  font-size: 14px;
+}
+#search:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+#tracklist {list-style:none;padding:0;margin:0}
+.track-row{display:flex;gap:20px;align-items:center;padding:19px 0;border-bottom:1px solid var(--line)}.track-row:last-child{border-bottom:none}
+.track-row button {
+  background: var(--panel2);
+  border: 1px solid var(--line);
+  color: var(--accent);
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+}
+.track-row button:hover {
+  border-color: var(--accent);
+}
+.track-title{font-size:17px;font-weight:600;margin:0 0 3px;display:block;color:var(--text);text-decoration:none}
+.track-title:hover{text-decoration:underline}
+footer{padding:20px 4px;color:var(--muted);font-size:12px}@media(max-width:540px){.wrap{padding:16px 12px}header{padding:22px}main{padding:4px 18px}.track-row{gap:14px}}
 </style>
 </head>
 <body>
 <div class="wrap">
-<header><div class="eyebrow">Archived IMEEM playlist</div><h1>sdsd</h1><p>Tyler, The Creator &middot; 1 listed track</p></header>
-<main aria-label="Playlist tracks"><ol><li><span class="number">01</span><div><h2><a href="https://web.archive.org/web/20081221202714/http://www.imeem.com/brothawisdom/music/ZKpkVppi/rick_james_mary_jane_chopped/" target="_blank" rel="noopener noreferrer">Mary Jane - CHOPPED</a></h2><p>Rick James</p></div></li></ol></main>
-<footer><p>Reconstructed from the track information provided. No audio files are included; the song title links to its archived page.</p><p style="margin-top:8px"><a href="https://web.archive.org/web/20081221202714/http://www.imeem.com/thecreator/playlist/do3EPZUx/sdsd_music_playlist/" target="_blank" rel="noopener noreferrer">View original playlist archive</a></p></footer>
+<header>
+  <div class="eyebrow">Archived IMEEM playlist</div>
+  <h1>sdsd</h1>
+  <p>Tyler, The Creator &middot; <span id="track-count">1</span> listed track</p>
+  <!-- Search Bar -->
+  <input type="text" id="search" placeholder="Search tracks..." oninput="renderTracks()">
+</header>
+
+<main aria-label="Playlist tracks">
+  <div id="tracklist"></div>
+</main>
+
+<footer>
+  <p>Reconstructed from the track information provided. Audio links open their archived pages or direct streams.</p>
+  <p style="margin-top:8px"><a href="https://web.archive.org/web/20081221202714/http://www.imeem.com/thecreator/playlist/do3EPZUx/sdsd_music_playlist/" target="_blank" rel="noopener noreferrer">View original playlist archive</a></p>
+</footer>
 </div>
+
+<script>
+// Helper selector shortcut
+const $ = (id) => document.getElementById(id);
+
+// Your track list array (You can add more tracks here easily!)
+const tracks = [
+  {
+    title: "Mary Jane - CHOPPED",
+    artist: "Rick James",
+    url: "https://web.archive.org/web/20081221202714/http://www.imeem.com/brothawisdom/music/ZKpkVppi/rick_james_mary_jane_chopped/"
+  }
+];
+
+let selected = null;
+let audio = null;
+let currentTrackPage = 1;
+const tracksPerPage = 10;
+let previousTrackSearch = "";
+
+function selectTrack(index) {
+  selected = index;
+  const track = tracks[index];
+
+  // If you want it to open the archive link or play an actual audio file source:
+  // window.open(track.url, '_blank');
+
+  renderTracks();
+}
+
+function renderTracks() {
+  const box = $('tracklist');
+  box.replaceChildren();
+
+  const query = $('search').value.toLowerCase().trim();
+
+  if (query !== previousTrackSearch) {
+    currentTrackPage = 1;
+    previousTrackSearch = query;
+  }
+
+  const matchingTracks = tracks
+    .map((track, index) => ({ track, index }))
+    .filter(({ track }) => 
+      track.title.toLowerCase().includes(query) || track.artist.toLowerCase().includes(query)
+    );
+
+  // Show "Track not found" if no results match the search
+  if (matchingTracks.length === 0) {
+    const notFoundDiv = document.createElement('div');
+    notFoundDiv.className = 'track-not-found';
+    notFoundDiv.style.cssText = 'padding: 30px; text-align: center; color: var(--muted); font-size: 15px;';
+    notFoundDiv.textContent = 'Track not found';
+    box.appendChild(notFoundDiv);
+    return;
+  }
+
+  matchingTracks.forEach(({ track, index }) => {
+    const row = document.createElement('div');
+    row.className = 'track-row';
+
+    const button = document.createElement('button');
+    button.dataset.trackIndex = index;
+    
+    const isPlaying = (index === selected && audio && !audio.paused && !audio.ended && !audio.error);
+
+    if (isPlaying) {
+      const img = document.createElement('img');
+      img.src = 'gifs/playing.gif';
+      img.alt = 'Playing';
+      img.style.width = '16px';
+      img.style.height = '16px';
+      button.replaceChildren(img);
+    } else {
+      button.textContent = '▶';
+    }
+
+    button.addEventListener('click', () => {
+      selectTrack(index);
+    });
+
+    const detailsDiv = document.createElement('div');
+    
+    const titleLink = document.createElement('a');
+    titleLink.className = 'track-title';
+    titleLink.href = track.url;
+    titleLink.target = '_blank';
+    titleLink.rel = 'noopener noreferrer';
+    titleLink.textContent = track.title;
+
+    const artistP = document.createElement('p');
+    artistP.textContent = track.artist;
+
+    detailsDiv.appendChild(titleLink);
+    detailsDiv.appendChild(artistP);
+
+    row.appendChild(button);
+    row.appendChild(detailsDiv);
+    box.appendChild(row);
+  });
+}
+
+// Initial render call on page load
+renderTracks();
+</script>
 </body>
 </html>
