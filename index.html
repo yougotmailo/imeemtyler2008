@@ -894,8 +894,8 @@ $('signout').onclick=e=>{e.preventDefault();state.username='';state.bio='';save(
 $('commentform').onsubmit=e=>{e.preventDefault();if(!state.username){edit();notice('Choose a local username first. Your comment draft is still here.');return;}const text=$('commenttext').value.trim();if(!text)return;state.comments.push({name:state.username,text:text.slice(0,1000),date:new Date().toLocaleString()});state.comments=state.comments.slice(-100);save();render();$('commenttext').value='';};
 let selected = 0;
 const sources = new Map();
-const defaultIconUrl = 'https://web.archive.org/web/20081121190710im_/http://resources-p3.imeem.com/resources/versioned/1/graphics/icons/note_60x60.gif';
-const playingIconUrl = 'https://cdn.discordapp.com/attachments/1513694254298566798/1567296059942637759/note_60x60_1.gif?ex=6aeba9b3&is=6aea5833&hm=161322e03a8def88f09c85082f06d1febac204e234e82dc272149535794ca96a';
+const defaultIconUrl = 'gifs/note60x60.gif';
+const playingIconUrl = 'gifs/playing.gif';
 const audio = $('audio');
 audio.volume = 0.7;
 tracks.forEach((track, index) => {
