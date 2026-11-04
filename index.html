@@ -38,6 +38,7 @@
 .sortrow button { border: 0; background: none; padding: 0 3px; }
 .pager { text-align: center; border-top: 1px solid #ddd; }
 .recentplay { padding: 1px 5px; }
+.trackicon{display:block;width:60px;height:60px;object-fit:contain;flex:0 0 60px;border:1px solid #c7d1d6;padding:2px;}
 #playersection .player { min-height: 220px; }
 @media (max-width: 720px) {
   .wrap { width: 100%; }
@@ -898,6 +899,8 @@ $('signout').onclick=e=>{e.preventDefault();state.username='';state.bio='';save(
 $('commentform').onsubmit=e=>{e.preventDefault();if(!state.username){edit();notice('Choose a local username first. Your comment draft is still here.');return;}const text=$('commenttext').value.trim();if(!text)return;state.comments.push({name:state.username,text:text.slice(0,1000),date:new Date().toLocaleString()});state.comments=state.comments.slice(-100);save();render();$('commenttext').value='';};
 let selected = 0;
 const sources = new Map();
+const defaultIconUrl = 'gifs/note60x60.gif';
+const playingIconUrl = 'gifs/playing.gif';
 const audio = $('audio');
 audio.volume = 0.7;
 tracks.forEach((track, index) => {
@@ -1006,8 +1009,8 @@ function renderTracks() {
         select(index, true);
       };
     }
-
-    row.append(play, link, makePlayingBars(index));
+    
+row.append(icon, link, play);
     li.append(row);
     box.append(li);
   });
