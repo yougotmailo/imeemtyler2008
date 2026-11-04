@@ -377,7 +377,7 @@
        </h2>
        <div class="player">
         <div class="now">
-         <img class="cover" data-track-icon="0" src="https://web.archive.org/web/20081121190710im_/http://resources-p3.imeem.com/resources/versioned/1/graphics/icons/note_60x60.gif" alt="Music"/>
+         <img class="cover" data-track-icon="0" src="gifs/note_60x60.gif" alt="Music"/>
          <div>
           <h3 id="nowtitle">
            Select a track
@@ -894,7 +894,7 @@ $('signout').onclick=e=>{e.preventDefault();state.username='';state.bio='';save(
 $('commentform').onsubmit=e=>{e.preventDefault();if(!state.username){edit();notice('Choose a local username first. Your comment draft is still here.');return;}const text=$('commenttext').value.trim();if(!text)return;state.comments.push({name:state.username,text:text.slice(0,1000),date:new Date().toLocaleString()});state.comments=state.comments.slice(-100);save();render();$('commenttext').value='';};
 let selected = 0;
 const sources = new Map();
-const defaultIconUrl = 'gifs/note60x60.gif';
+const defaultIconUrl = 'gifs/note_60x60.gif';
 const playingIconUrl = 'gifs/playing.gif';
 const audio = $('audio');
 audio.volume = 0.7;
