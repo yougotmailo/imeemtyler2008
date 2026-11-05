@@ -1461,5 +1461,29 @@ link.textContent = entry[0];
 button.replaceWith(link);
 });
 </script>
+<style>
+/* Compact two-row header to match the supplied reference. */
+.masthead {
+  min-height: 36px;
+  height: 36px;
+}
+.topbar-inner {
+  height: 36px;
+}
+.topbar-logo img {
+  width: 270px;
+  height: 32px;
+}
+.masthead.login-open .account {
+  top: 36px;
+}
+@media (max-width: 720px) {
+  .topbar-inner { height: 36px; }
+  .topbar-logo img { width: 250px; }
+}
+@media (max-width: 420px) {
+  .topbar-logo img { width: min(180px, calc(100vw - 150px)); }
+}
+</style>
 </body>
 </html>
