@@ -197,6 +197,9 @@ box-shadow: 0 2px 5px #0005;
   .global .topsearch { width: 100%; margin: 0; justify-content: flex-end; }
   .global .topsearch input { width: 42vw; }
 }
+.collapse-toggle { border: 0; background: transparent; padding: 1px 3px; }
+.collapse-toggle:hover { background: transparent; }
+.collapse-toggle img { display: block; width: 12px; height: 12px; }
 </style>
 </head>
 <body>
@@ -204,9 +207,9 @@ box-shadow: 0 2px 5px #0005;
 <header class="masthead">
 <div class="topbar-inner">
 <a class="topbar-logo" href="#profile" aria-label="imeem home">
-<img src="https://web.archive.org/web/20071017171407im_/http://resources.imeem.com/resources/graphics/nav/logo.gif" alt="imeem"/>
+<img src="gifs/imeemlogo.gif" alt="imeem"/>
 </a>
-<span class="topbar-tagline">what’s on your playlist?</span>
+
 <div class="topbar-account-links">
 <a href="#" id="topupload">upload</a>
 <a href="#" id="topinvite">invite</a>
@@ -255,7 +258,7 @@ Local demo only. Do not enter a real password; it is never saved.
 <a href="#video">video</a>
 <a href="#groups">community</a>
 <a class="topbar-signup" href="#" id="topsignup" aria-label="Sign up and choose a local username">
-<img src="https://web.archive.org/web/20070831111045im_/http://www.imeem.com/resources/graphics/mini/signup_reg.gif" alt="Sign Up!"/>
+<img src="gifs/imeemsignup.gif" alt="Sign Up!"/>
 </a>
 <form class="topsearch" id="topsearch">
 <input aria-label="Search" id="topquery"/>
@@ -517,6 +520,7 @@ Select a track
 <div id="playerstatus">
 Select a track to play its configured audio URL.
 </div>
+<img id="playerloading" src="gifs/imeemloading.gif" alt="Loading audio" hidden=""/>
 </div>
 </div>
 <div class="controls">
@@ -998,6 +1002,7 @@ const tracks = [
 
 'use strict';
 const $=id=>document.getElementById(id),key='imeem-visitor-thecreator-v1';
+$('ctl00_FeaturedProfileTitleImage').src = 'gifs/imeemmusic.gif';
 let state={username:'',bio:'',friend:false,comments:[],lastCommentAt:0},storageOK=true;
 try{const x=JSON.parse(localStorage.getItem(key)||'null');if(x&&typeof x==='object'){state.username=typeof x.username==='string'&&/^[A-Za-z0-9_-]{3,20}$/.test(x.username)?x.username:'';state.bio=typeof x.bio==='string'?x.bio.slice(0,600):'';state.friend=x.friend===true;state.comments=Array.isArray(x.comments)?x.comments.filter(c=>c&&typeof c.name==='string'&&typeof c.text==='string'&&typeof c.date==='string').slice(-100).map(c=>({name:c.name.slice(0,20),text:c.text.slice(0,1000),date:c.date.slice(0,100)})):[];state.lastCommentAt=Number.isFinite(x.lastCommentAt)&&x.lastCommentAt>0?x.lastCommentAt:0;}const test=key+'-test';localStorage.setItem(test,'1');localStorage.removeItem(test);}catch(e){storageOK=false;}
 function notice(text){$('status').textContent=text;}
@@ -1236,6 +1241,7 @@ $('play').type = 'button';
 $('play').onclick = event => { event.preventDefault(); toggleTrack(selected); };
 audio.addEventListener('playing', () => {
 actuallyPlaying = !audio.paused && !audio.ended && !audio.error;
+$('playerloading').hidden = true;
 syncPlaybackUI();
 if (actuallyPlaying) $('playerstatus').textContent = 'Playing audio.';
 });
@@ -1245,7 +1251,8 @@ actuallyPlaying = false;
 syncPlaybackUI();
 if (type === 'error') $('playerstatus').textContent = 'Audio could not be loaded. Check the link or attach a local file.';
 else if (type === 'pause' && !audio.ended) $('playerstatus').textContent = 'Paused.';
-else if (type === 'waiting' || type === 'stalled') $('playerstatus').textContent = 'Buffering audio…';
+else if (type === 'waiting' || type === 'stalled') { $('playerstatus').textContent = 'Buffering audio…'; $('playerloading').hidden = false; }
+else $('playerloading').hidden = true;
 });
 });
 audio.addEventListener('seeked', () => {
@@ -1361,7 +1368,7 @@ const heading = section.querySelector('h2');
 const toggle = document.createElement('button');
 toggle.type = 'button';
 toggle.className = 'collapse-toggle';
-toggle.textContent = '−';
+toggle.innerHTML = '<img src="gifs/imeemcollapse.gif" alt="Collapse"/>';
 toggle.setAttribute('aria-label', 'Collapse ' + (id === 'music' ? 'Music' : 'Recent Media'));
 toggle.setAttribute('aria-expanded', 'true');
 toggle.onclick = () => {
@@ -1369,7 +1376,9 @@ const expanded = toggle.getAttribute('aria-expanded') === 'true';
 section.querySelectorAll(':scope > :not(h2)').forEach(content => {
 content.hidden = expanded;
 });
-toggle.textContent = expanded ? '+' : '−';
+toggle.innerHTML = expanded
+? '<img src="gifs/imeemexpand.gif" alt="Expand"/>'
+: '<img src="gifs/imeemcollapse.gif" alt="Collapse"/>';
 toggle.setAttribute('aria-expanded', String(!expanded));
 toggle.setAttribute('aria-label', (expanded ? 'Expand ' : 'Collapse ') + (id === 'music' ? 'Music' : 'Recent Media'));
 };
@@ -1417,6 +1426,13 @@ event.preventDefault();
 rememberProfile = true;
 edit();
 };
+const signupImage = $('topsignup').querySelector('img');
+const signupHoverImage = new Image();
+signupHoverImage.src = 'gifs/imeemsignup_hover.gif';
+$('topsignup').addEventListener('mouseenter', () => { signupImage.src = signupHoverImage.src; });
+$('topsignup').addEventListener('mouseleave', () => { signupImage.src = 'gifs/imeemsignup.gif'; });
+$('topsignup').addEventListener('focus', () => { signupImage.src = signupHoverImage.src; });
+$('topsignup').addEventListener('blur', () => { signupImage.src = 'gifs/imeemsignup.gif'; });
 // Keep archive playlist destinations alongside the local explanatory dialog.
 const localPlaylists = [
 ["sdsd", "./sdsd.html"],
