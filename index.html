@@ -1717,5 +1717,104 @@ a:hover { color: #00a8ff; text-decoration: none; }
 .topbar-bottomrow { height: 32px; }
 .topbar-bottomrow .topbar-links { height: 31px; }
 </style>
+<style>
+/* Match the archived 900px container and two-column profile layout. */
+.wrap { width: 900px; }
+.masthead {
+  min-height: 60px;
+  height: 60px;
+}
+.topbar-inner {
+  position: relative;
+  display: block;
+  width: min(900px, calc(100% - 24px));
+  height: 60px;
+  padding: 0;
+}
+.topbar-toprow { position: static; height: 30px; }
+.topbar-logo img {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 247px;
+  height: 30px;
+}
+.topbar-toprow .topbar-account-links {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 0;
+  padding-top: 10px;
+  gap: 10px;
+}
+.topbar-inner .topsearch {
+  position: absolute;
+  top: 30px;
+  right: 0;
+  bottom: auto;
+  display: flex;
+  width: 326px;
+  min-width: 0;
+  margin: 0;
+  padding: 2px 0 0;
+  gap: 4px;
+}
+.topbar-inner .topsearch input { width: 188px; }
+.topbar-inner .topsearch select { width: 78px; max-width: none; }
+.topbar-bottomrow {
+  position: absolute;
+  top: 30px;
+  left: 0;
+  width: 310px;
+  height: 24px;
+  border: 0;
+}
+.topbar-bottomrow .topbar-links {
+  height: 24px;
+  gap: 12px;
+}
+.topbar-bottomrow .topbar-links a {
+  color: #4aabf0;
+  font-size: 13px;
+}
+.topbar-bottomrow .topbar-links .topbar-signup { margin: 0 0 0 3px; }
+.masthead.login-open .account { top: 60px; }
+.musicbanner#ctl00_FeaturedProfilePanel {
+  position: static;
+  left: auto;
+  transform: none;
+  display: flex !important;
+  width: 100%;
+  height: 32px;
+  min-height: 32px;
+  margin: 0;
+  padding: 0;
+  background-position: right top;
+  background-size: auto 32px;
+}
+#ctl00_FeaturedProfileTitleImage {
+  width: 165px;
+  height: 32px;
+  flex-basis: 165px;
+}
+.page { padding: 10px 10px 20px; }
+.title, .tabs { display: none; }
+.grid {
+  grid-template-columns: 32% 64%;
+  gap: 2%;
+}
+@media (max-width: 720px) {
+  .wrap { width: 100%; }
+  .topbar-inner { width: calc(100% - 20px); height: 60px; }
+  .topbar-logo img { width: min(247px, 45vw); height: 30px; }
+  .topbar-toprow .topbar-account-links { padding-top: 3px; }
+  .topbar-inner .topsearch { top: 30px; width: min(326px, 100%); }
+  .topbar-inner .topsearch input { width: min(188px, 55vw); }
+  .topbar-bottomrow { top: 30px; width: auto; max-width: 55%; }
+  .topbar-bottomrow .topbar-links { gap: 8px; }
+  .topbar-bottomrow .topbar-links a { font-size: 11px; }
+  .grid { grid-template-columns: minmax(0, 1fr); gap: 0; }
+}
+</style>
 </body>
 </html>
