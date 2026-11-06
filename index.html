@@ -1689,6 +1689,32 @@ button.replaceWith(link);
   .topbar-toprow .topsearch { width: auto; flex: 0 0 auto; }
   .topbar-toprow .topsearch input { width: 42vw; }
 }
+a:hover { color: #00a8ff; text-decoration: none; }
+.topbar-bottomrow .topbar-links a:hover { color: #00a8ff; text-decoration: none; }
+</style>
+<style>
+/* Match the supplied image asset dimensions. */
+.topbar-logo img { width: 247px; height: 30px; max-width: none; object-fit: fill; }
+#ctl00_FeaturedProfileTitleImage { width: 165px; height: 32px; flex-basis: 165px; }
+.musicbanner#ctl00_FeaturedProfilePanel {
+  width: 100vw;
+  height: 32px;
+  min-height: 32px;
+  background-size: 100% 32px;
+}
+.collapse-toggle img { width: 12px; height: 12px; }
+.topbar-bottomrow .topbar-links .topbar-signup img { width: 61px; height: 18px; object-fit: fill; }
+.masthead {
+  background-size: 1px 60px;
+  background-repeat: repeat-x;
+}
+@media (max-width: 520px) {
+  .topbar-logo img { width: 247px; height: 30px; max-width: none; }
+  .topbar-bottomrow .topbar-links .topbar-signup img { width: 61px; height: 18px; }
+}
+.topbar-toprow { height: 60px; }
+.topbar-bottomrow { height: 32px; }
+.topbar-bottomrow .topbar-links { height: 31px; }
 </style>
 </body>
 </html>
