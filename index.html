@@ -207,6 +207,69 @@ box-shadow: 0 2px 5px #0005;
 .collapse-toggle:hover { background: transparent; }
 .collapse-toggle img { display: block; width: 12px; height: 12px; }
 </style>
+<style>
+/* Keep the logo at its asset's natural size and both rows inside one gradient header. */
+.masthead {
+  min-height: 68px;
+  height: 68px;
+  background-size: auto 68px;
+  background-repeat: repeat-x;
+}
+.topbar-inner {
+  width: min(990px, calc(100% - 24px));
+  height: 68px;
+  display: block;
+}
+.topbar-toprow {
+  position: relative;
+  height: 42px;
+  align-items: flex-start;
+}
+.topbar-logo img {
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  object-fit: initial;
+}
+.topbar-toprow .topbar-account-links {
+  margin-left: auto;
+  padding-top: 3px;
+}
+.topbar-toprow .topsearch {
+  position: absolute;
+  right: 0;
+  bottom: 1px;
+  margin: 0;
+  padding: 0;
+}
+.topbar-bottomrow {
+  height: 26px;
+  border-top: 1px solid #505052;
+}
+.topbar-bottomrow .topbar-links {
+  height: 25px;
+  gap: 14px;
+}
+.topbar-bottomrow .topbar-links a { font-size: 14px; }
+.topbar-bottomrow .topbar-links .topbar-signup { margin-left: 6px; }
+.masthead.login-open .account { top: 68px; }
+@media (max-width: 720px) {
+  .masthead { min-height: 68px; height: auto; }
+  .topbar-inner { width: calc(100% - 20px); height: auto; }
+  .topbar-toprow { height: 42px; }
+  .topbar-toprow .topsearch input { width: min(205px, 32vw); }
+  .topbar-bottomrow .topbar-links { gap: 8px; }
+  .topbar-bottomrow .topbar-links a { font-size: 12px; }
+}
+@media (max-width: 520px) {
+  .topbar-logo img { max-width: 45vw; }
+  .topbar-toprow .topsearch select { max-width: 80px; }
+  .topbar-toprow .topsearch input { width: 25vw; }
+  .topbar-bottomrow .topbar-links { gap: 6px; }
+  .topbar-bottomrow .topbar-links a { font-size: 11px; }
+  .topbar-bottomrow .topbar-links .topbar-signup img { width: 56px; }
+}
+</style>
 </head>
 <body>
 <div class="wrap">
