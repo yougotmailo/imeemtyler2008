@@ -122,7 +122,7 @@ box-shadow: 0 2px 5px #0005;
 <style id="enhanced-imeem-banner">
 .musicbanner#ctl00_FeaturedProfilePanel{position:relative;display:flex;align-items:center;justify-content:flex-start;height:32px;min-height:32px;padding:0;margin:0 0 12px;overflow:hidden;border:0;border-radius:0 5px 5px 0;background-image:url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAAgCAIAAAC3sD5OAAAAYElEQVR42l2NuQ3DMBAE5+BlxHKkKgQD7r8IdnCPAjIgHS0G+9n3+QG67guQVwCKKEDuDqjqpJwRBxQ5yQNQ5qovym1sef9SWzJr/8tgoyUYgDjIZt3MAPXegU9rbYzxAsIRTFilHnxNAAAAAElFTkSuQmCC");background-position:right top;background-repeat:repeat-x;background-size:2px 32px;box-shadow:none;font-size:0;line-height:0}
 #ctl00_FeaturedProfileTitleImage{display:block;flex:0 0 165px;width:165px;height:32px;max-width:none;border:0;margin:0;padding:0;object-fit:contain}
-.musicbanner-rightborder{position:absolute;right:0;top:0;z-index:2;display:block;width:2px;height:32px;margin:0;object-fit:fill}.musicbanner#ctl00_FeaturedProfilePanel .musicbanner-endcap{position:absolute;right:0;top:0;bottom:0;width:5px;padding:0;margin:0;background:linear-gradient(to right,transparent,rgba(0,0,0,.16));border-radius:0 5px 5px 0}
+.musicbanner-rightborder{position:fixed;left:957.088px;top:126.989px;z-index:2;display:block;width:2px;height:32px;margin:0;object-fit:fill}.musicbanner#ctl00_FeaturedProfilePanel .musicbanner-endcap{position:absolute;right:0;top:0;bottom:0;width:5px;padding:0;margin:0;background:linear-gradient(to right,transparent,rgba(0,0,0,.16));border-radius:0 5px 5px 0}
 </style>
 
 <style>
@@ -297,7 +297,7 @@ box-shadow: 0 2px 5px #0005;
 <option>Photos</option>
 <option>Polls</option>
 </select>
-<button>Search</button>
+<input aria-label="Search" id="topsearchbutton" type="button" value="Search"/>
 </form>
 </div>
 <div class="topbar-bottomrow">
@@ -1469,6 +1469,7 @@ renderTracks();
 notice('Only the supplied music list is searchable in this local demo.');
 }
 };
+$('topsearchbutton').onclick = () => $('topsearch').dispatchEvent(new Event('submit', { bubbles: true, cancelable: true }));
 $('toplogin').onclick = event => {
 event.preventDefault();
 const header = document.querySelector('.masthead');
@@ -1694,8 +1695,21 @@ button.replaceWith(link);
   .topbar-toprow .topsearch { width: auto; flex: 0 0 auto; }
   .topbar-toprow .topsearch input { width: 42vw; }
 }
-a:hover { color: #00a8ff; text-decoration: none; }
-.topbar-bottomrow .topbar-links a:hover { color: #00a8ff; text-decoration: none; }
+a:hover { color: #cedfff; text-decoration: none; }
+.topbar-bottomrow .topbar-links a:hover { color: #cedfff; text-decoration: none; }
+#topsearch input[type="button"] {
+  appearance: auto;
+  width: 49.7812px;
+  height: 18px;
+  margin: 0 0 0 4px;
+  padding: 1px 6px;
+  border: 2px outset rgb(0, 0, 0);
+  border-radius: 0;
+  background: rgb(240, 240, 240);
+  box-shadow: none;
+  color: rgb(0, 0, 0);
+  font: 10.6667px Arial;
+}
 </style>
 <style>
 /* Match the supplied image asset dimensions. */
@@ -1765,14 +1779,17 @@ a:hover { color: #00a8ff; text-decoration: none; }
   right: 0;
   bottom: auto;
   display: flex;
+  align-items: center;
   width: 326px;
+  height: 30px;
   min-width: 0;
   margin: 0;
-  padding: 2px 0 0;
+  padding: 0;
   gap: 4px;
 }
-.topbar-inner .topsearch input { width: 188px; }
-.topbar-inner .topsearch select { width: 78px; max-width: none; }
+.topbar-inner .topsearch input { width: 188px; height: 19px; }
+.topbar-inner .topsearch select { width: 79px; height: 18px; max-width: none; }
+.topbar-inner .topsearch button { height: 18px; padding: 0 8px; }
 .topbar-bottomrow {
   position: absolute;
   top: 30px;
