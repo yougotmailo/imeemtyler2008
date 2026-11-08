@@ -270,6 +270,28 @@ box-shadow: 0 2px 5px #0005;
   .topbar-bottomrow .topbar-links .topbar-signup img { width: 56px; }
 }
 </style>
+<style>
+#topsearchbutton {
+  appearance: none;
+  box-sizing: border-box;
+  width: 398px;
+  height: 143px;
+  padding: 0;
+  border: 6px solid rgb(118, 118, 118);
+  border-radius: 18px;
+  background-color: rgb(230, 230, 230);
+  color: #000;
+  font: 80px Arial, sans-serif;
+  cursor: default;
+}
+#topsearchbutton:hover {
+  background-color: rgb(229, 229, 229);
+  outline: 1px solid rgb(79, 79, 79);
+}
+@media (max-width: 520px) {
+  #topsearchbutton { max-width: 100%; }
+}
+</style>
 </head>
 <body>
 <div class="wrap">
@@ -1699,15 +1721,15 @@ a:hover { color: #cedfff; text-decoration: none; }
 .topbar-bottomrow .topbar-links a:hover { color: #cedfff; text-decoration: none; }
 #topsearch input[type="button"] {
   appearance: auto;
+  box-sizing: border-box;
   width: 49.7812px;
   height: 18px;
   margin: 0 0 0 4px;
   padding: 1px 6px;
-  border: 2px outset rgb(0, 0, 0);
-  border-radius: 0;
-  background: rgb(240, 240, 240);
-  box-shadow: none;
-  color: rgb(0, 0, 0);
+  border: 2px outset buttonborder;
+  background-color: #f0f0f0;
+  color: #000;
+  cursor: default;
   font: 10.6667px Arial;
 }
 </style>
@@ -1881,6 +1903,49 @@ a:hover { color: #cedfff; text-decoration: none; }
   font: 10.6667px "lucida grande", tahoma, verdana, arial, sans-serif;
 }
 .topbar-toprow .topbar-account-links a:first-child { margin-left: 0; }
+</style>
+<style>
+/* Round the header search controls; native dropdown options stay browser-rendered. */
+#topsearch #topquery,
+#topsearch #searchtype {
+  border-radius: 2px;
+}
+body { background: #fff; }
+.topbar-account-links a:hover { text-decoration: underline; }
+#topsearchbutton:hover {
+  background: rgb(229, 229, 229);
+  outline: 1px solid rgb(79, 79, 79);
+/* Round the header search controls; native dropdown options stay browser-rendered. */
+#topsearch #topquery,
+#topsearch #searchtype {
+  border-radius: 2px;
+}
+
+body { background: #fff; }
+
+.topbar-account-links a:hover {
+  text-decoration: underline;
+}
+
+#topsearchbutton {
+  appearance: none;
+  width: 398px;
+  height: 143px;
+  padding: 0;
+  border: 2px solid rgb(118, 118, 118);
+  border-radius: 18px;
+  box-shadow: none;
+  outline: none;
+  background: rgb(230, 230, 230);
+  color: #000;
+  font: 80px Arial, sans-serif;
+}
+
+#topsearchbutton:hover {
+  border-color: rgb(79, 79, 79);
+  background: rgb(229, 229, 229);
+  outline: 1px solid rgb(79, 79, 79);
+}
 </style>
 </body>
 </html>
